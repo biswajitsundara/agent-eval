@@ -5,7 +5,6 @@ from deepeval.tracing import observe, update_current_trace
 from deepeval.metrics import TaskCompletionMetric
 from deepeval.metrics import TaskCompletionMetric, ToolCorrectnessMetric
 from deepeval.test_case import ToolCall
-import sys
 from pathlib import Path
 from deepeval.dataset import EvaluationDataset, Golden
 
@@ -30,16 +29,17 @@ def support_agent(user_input: str) -> str:
 
 
 
-task_completion = TaskCompletionMetric(threshold=0.7,model="gpt-4o")
-
+task_completion = TaskCompletionMetric(threshold=0.7,model="gpt-4o-mini")
 tool_correctness = ToolCorrectnessMetric()
 
 dataSet = EvaluationDataset(goldens= [
     Golden(input = "Where is my order ORD-1042?",
-           expected_tools=[ToolCall(name="get_order_status")]),
+           expected_tools=[ToolCall(name="get_order_status")],
+           expected_output="Order ORD-1042 has shipped and is in transit.",),
 
     Golden(input = "What is refund policy for electronics?",
-           expected_tools=[ToolCall(name="get_refund_policy")])
+           expected_tools=[ToolCall(name="get_refund_policy")],
+           expected_output="Refunds for electronics are accepted within 30 days of purchase.")
 ])
 
 
