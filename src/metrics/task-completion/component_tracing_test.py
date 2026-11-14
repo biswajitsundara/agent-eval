@@ -9,7 +9,7 @@ from pathlib import Path
 from deepeval.dataset import EvaluationDataset, Golden
 
 # Go up 3 levels: task_completion_test.py -> metrics -> src -> agent-eval
-project_root = Path(__file__).resolve().parents[2] 
+project_root = Path(__file__).resolve().parents[3] 
 sys.path.insert(0, str(project_root))
 
 from src.agents.shopease.agent_instrumented import support_agent as _support_agent
